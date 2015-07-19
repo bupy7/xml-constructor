@@ -8,7 +8,7 @@ The XML of document structure constructor.
 Add the following to `require` section of your `composer.json`:
 
 ```
-"bupy7/xml-constructor": "@dev"
+"bupy7/xml-constructor": "dev-master"
 ```
 
 Then do `composer install`.
