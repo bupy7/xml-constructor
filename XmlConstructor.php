@@ -5,7 +5,7 @@ namespace bupy7\xml\constructor;
 use XMLWriter;
 
 /**
- * The XML of document structure constructor.
+ * Creating XML document from array.
  * 
  * Example:
  * 
