@@ -39,8 +39,7 @@ $in = [
         ],
     ],
 ];
-$xml->fromArray($in);
-echo $xml->getDocument();
+echo $xml->fromArray()->asXml();
 ```
 
 ### License

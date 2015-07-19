@@ -42,6 +42,8 @@ use XMLWriter;
  */
 class XmlConstructor extends XMLWriter
 {
+    private $_prepared = false;
+    
     /**
      * Constructor of XML document structure.
      * @param string $root A root element's name of a current xml document.
@@ -65,6 +67,7 @@ class XmlConstructor extends XMLWriter
      * and a attribute's text in value part.
      * 
      * @param array $in Contains tags, attributes and texts.
+     * @return static
      */
     public function fromArray($in)
     {
@@ -97,16 +100,29 @@ class XmlConstructor extends XMLWriter
             }
             $this->endElement();  
         }
+        return $this;
     }
 
     /**
      * Return the content of a current xml document.
      * @return string XML document.
      */
-    public function getDocument()
+    public function asXml()
     {
-        $this->endElement();
-        $this->endDocument();
-        return $this->outputMemory();
+        return $this->preparing()->outputMemory();
+    }
+    
+    /**
+     * Preparing document to output.
+     * @return static
+     */
+    protected function preparing()
+    {
+        if (!$this->_prepared) {
+            $this->endElement();
+            $this->endDocument();
+            $this->_prepared = true;
+        }
+        return $this;
     }
 }
