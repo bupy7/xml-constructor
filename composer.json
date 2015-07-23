@@ -4,6 +4,7 @@
     "type": "library",
     "keywords": ["php", "library", "xml", "xml constructor", "xml writter"],
     "license": "BSD-3-Clause",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "Vasilij Belosludcev",
