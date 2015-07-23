@@ -39,6 +39,7 @@ use XMLWriter;
  * 
  * @author Belosludcev Vasilij <https://github.com/bupy7>
  * @see http://php.net/manual/ru/ref.xmlwriter.php
+ * @since 1.0.0
  */
 class XmlConstructor extends XMLWriter
 {
