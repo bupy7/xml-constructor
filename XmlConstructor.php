@@ -34,7 +34,7 @@ use XMLWriter;
  *     ],
  * ];
  * $xml->fromArray($in);
- * echo $xml->getDocument();
+ * echo $xml->toOutput();
  * ~~~
  * 
  * @author Belosludcev Vasilij <https://github.com/bupy7>
