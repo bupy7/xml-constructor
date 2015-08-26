@@ -108,7 +108,7 @@ class XmlConstructor extends XMLWriter
      * Return the content of a current xml document.
      * @return string XML document.
      */
-    public function asXml()
+    public function toOutput()
     {
         return $this->preparing()->outputMemory();
     }
