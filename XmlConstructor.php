@@ -103,6 +103,7 @@ class XmlConstructor extends XMLWriter
     /**
      * Return the content of a current xml document.
      * @return string XML document.
+     * @since 1.1.0
      */
     public function toOutput()
     {
@@ -125,6 +126,7 @@ class XmlConstructor extends XMLWriter
     /**
      * Configures an object with the initial property values.
      * @param array $config name-value pairs that will be used to initialize the object
+     * @since 1.2.0
      */
     protected function configure(array $config)
     {
@@ -144,6 +146,7 @@ class XmlConstructor extends XMLWriter
     /**
      * Tooggle identation on.
      * @param string|false $string String used for indenting.
+     * @since 1.2.0
      */
     protected function setIndentStrng($string)
     {
@@ -156,6 +159,7 @@ class XmlConstructor extends XMLWriter
     /**
      * Create document tag.
      * @param array|false $arguments Arguments of method `startDocument()`.
+     * @since 1.2.0
      */
     protected function setStartDocument(array $arguments)
     {
