@@ -1,6 +1,11 @@
 xml-constructor
 ---------------
 
+[![Latest Stable Version](https://poser.pugx.org/bupy7/xml-constructor/v/stable)](https://packagist.org/packages/bupy7/xml-constructor)
+[![Total Downloads](https://poser.pugx.org/bupy7/xml-constructor/downloads)](https://packagist.org/packages/bupy7/xml-constructor)
+[![Latest Unstable Version](https://poser.pugx.org/bupy7/xml-constructor/v/unstable)](https://packagist.org/packages/bupy7/xml-constructor)
+[![License](https://poser.pugx.org/bupy7/xml-constructor/license)](https://packagist.org/packages/bupy7/xml-constructor)
+
 The XML of document structure constructor.
 
 ### Install
@@ -16,25 +21,28 @@ Then do `composer install`.
 ### Usage
 
 ```php
-$xml = new XmlConstructor('root');
+$xml = new XmlConstructor();
 $in = [
-    [
-        'tag' => 'tag1',
-        'attributes' => [
-            'attr1' => 'val1',
-            'attr2' => 'val2',
+    'tag' => 'root',
+    'elements' => [
+        [
+            'tag' => 'tag1',
+            'attributes' => [
+                'attr1' => 'val1',
+                'attr2' => 'val2',
+            ],
         ],
-    ],
-    [
-        'tag' => 'tag2',
-        'content' => 'content2',
-    ],
-    [
-        'tag' => 'tag3',
-        'elements' => [
-            [
-                'tag' => 'tag4',
-                'content' => 'content4',
+        [
+            'tag' => 'tag2',
+            'content' => 'content2',
+        ],
+        [
+            'tag' => 'tag3',
+            'elements' => [
+                [
+                    'tag' => 'tag4',
+                    'content' => 'content4',
+                ],
             ],
         ],
     ],

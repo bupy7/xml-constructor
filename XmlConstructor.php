@@ -10,25 +10,28 @@ use XMLWriter;
  * Example:
  * 
  * ~~~
- * $xml = new XmlConstructor('root');
+ * $xml = new XmlConstructor();
  * $in = [
- *     [
- *         'tag' => 'tag1',
- *         'attributes' => [
- *             'attr1' => 'val1',
- *             'attr2' => 'val2',
+ *     'tag' => 'root',
+ *     'elements' => [
+ *         [
+ *             'tag' => 'tag1',
+ *             'attributes' => [
+ *                 'attr1' => 'val1',
+ *                 'attr2' => 'val2',
+ *             ],
  *         ],
- *     ],
- *     [
- *         'tag' => 'tag2',
- *         'content' => 'content2',
- *     ],
- *     [
- *         'tag' => 'tag3',
- *         'elements' => [
- *             [
- *                 'tag' => 'tag4',
- *                 'content' => 'content4',
+ *         [
+ *             'tag' => 'tag2',
+ *             'content' => 'content2',
+ *         ],
+ *         [
+ *             'tag' => 'tag3',
+ *             'elements' => [
+ *                 [
+ *                     'tag' => 'tag4',
+ *                     'content' => 'content4',
+ *                 ],
  *             ],
  *         ],
  *     ],
@@ -47,19 +50,12 @@ class XmlConstructor extends XMLWriter
     
     /**
      * Constructor of XML document structure.
-     * @param string $root A root element's name of a current xml document.
-     * @param string $file Path of a XSLT file.
+     * @param array $config name-value pairs that will be used to initialize the object
      */
-    public function __construct($root, $file = null)
+    public function __construct(array $config = [])
     {
         $this->openMemory();
-        $this->setIndent(true);
-        $this->setIndentString(' ');
-        $this->startDocument('1.0', 'UTF-8');
-        if ($file !== null) {
-            $this->writePi('xml-stylesheet', 'type="text/xsl" href="' . $file . '"');
-        }
-        $this->startElement($root);
+        $this->configure($config);
     }
 
     /**
@@ -120,10 +116,51 @@ class XmlConstructor extends XMLWriter
     protected function preparing()
     {
         if (!$this->_prepared) {
-            $this->endElement();
             $this->endDocument();
             $this->_prepared = true;
         }
         return $this;
+    }
+    
+    /**
+     * Configures an object with the initial property values.
+     * @param array $config name-value pairs that will be used to initialize the object
+     */
+    protected function configure(array $config)
+    {
+        if (isset($config['indentString'])) {
+            $this->setIndentString($config['indentString']);
+        } else {
+            $this->setIndentString(' ');
+        }
+
+        if (isset($config['startDocument'])) {
+            $this->setStartDocument($config['startDocument']);
+        } else {
+            $this->setStartDocument(['1.0', 'UTF-8']);
+        }
+    }
+    
+    /**
+     * Tooggle identation on.
+     * @param string|false $string String used for indenting.
+     */
+    protected function setIndentStrng($string)
+    {
+        if ($string !== false) {
+            $this->setIndent(true);
+            $this->setIndentString($string);
+        }
+    }
+    
+    /**
+     * Create document tag.
+     * @param array|false $arguments Arguments of method `startDocument()`.
+     */
+    protected function setStartDocument(array $arguments)
+    {
+        if ($arguments !== false) {
+            call_user_func_array([$this, 'startDocument'], $arguments);
+        }
     }
 }
