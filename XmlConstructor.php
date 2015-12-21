@@ -48,7 +48,15 @@ use XMLWriter;
  */
 class XmlConstructor extends XMLWriter
 {
+    /**
+     * @var boolean Flag of completed preparing.
+     */
     private $_prepared = false;
+    /**
+     * @var boolean Flag of added start document tag.
+     * @since 1.2.0
+     */
+    private $_startDocument = false;
     
     /**
      * Constructor of XML document structure.
@@ -119,7 +127,9 @@ class XmlConstructor extends XMLWriter
     protected function preparing()
     {
         if (!$this->_prepared) {
-            $this->endDocument();
+            if ($this->_startDocument) {
+                $this->endDocument();
+            }
             $this->_prepared = true;
         }
         return $this;
@@ -166,7 +176,9 @@ class XmlConstructor extends XMLWriter
     protected function configStartDocument($arguments)
     {
         if (is_array($arguments)) {
-            call_user_func_array([$this, 'startDocument'], $arguments);
+            if (call_user_func_array([$this, 'startDocument'], $arguments)) {
+                $this->_startDocument = true;
+            }
         }
     }
 }

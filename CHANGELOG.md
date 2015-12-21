@@ -10,6 +10,7 @@ v1.2.0 [2015-12-21]
 - Added ability configuration of `XMLWriter` via `$config` param to `__construct()`
 method. 
 - Added `libxml` to required section of `composer.json`.
+- Small enhancements and fixes.
 
 v1.1.0 [2015-08-27]
 -------------------
