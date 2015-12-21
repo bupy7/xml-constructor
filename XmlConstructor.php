@@ -133,15 +133,15 @@ class XmlConstructor extends XMLWriter
     protected function configure(array $config)
     {
         if (isset($config['indentString'])) {
-            $this->setIndentString($config['indentString']);
+            $this->configIndentString($config['indentString']);
         } else {
-            $this->setIndentString(' ');
+            $this->configIndentString(str_repeat(' ', 4));
         }
 
         if (isset($config['startDocument'])) {
-            $this->setStartDocument($config['startDocument']);
+            $this->configStartDocument($config['startDocument']);
         } else {
-            $this->setStartDocument(['1.0', 'UTF-8']);
+            $this->configStartDocument(['1.0', 'UTF-8']);
         }
     }
     
@@ -150,7 +150,7 @@ class XmlConstructor extends XMLWriter
      * @param string|false $string String used for indenting.
      * @since 1.2.0
      */
-    protected function setIndentString($string)
+    protected function configIndentString($string)
     {
         if ($string !== false) {
             $this->setIndent(true);
@@ -163,7 +163,7 @@ class XmlConstructor extends XMLWriter
      * @param array|false $arguments Arguments of method `startDocument()`.
      * @since 1.2.0
      */
-    protected function setStartDocument($arguments)
+    protected function configStartDocument($arguments)
     {
         if (is_array($arguments)) {
             call_user_func_array([$this, 'startDocument'], $arguments);
