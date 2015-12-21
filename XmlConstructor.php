@@ -150,11 +150,11 @@ class XmlConstructor extends XMLWriter
      * @param string|false $string String used for indenting.
      * @since 1.2.0
      */
-    protected function setIndentStrng($string)
+    protected function setIndentString($string)
     {
         if ($string !== false) {
             $this->setIndent(true);
-            $this->setIndentString($string);
+            parent::setIndentString($string);
         }
     }
     
@@ -163,9 +163,9 @@ class XmlConstructor extends XMLWriter
      * @param array|false $arguments Arguments of method `startDocument()`.
      * @since 1.2.0
      */
-    protected function setStartDocument(array $arguments)
+    protected function setStartDocument($arguments)
     {
-        if ($arguments !== false) {
+        if (is_array($arguments)) {
             call_user_func_array([$this, 'startDocument'], $arguments);
         }
     }
