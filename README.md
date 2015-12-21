@@ -23,25 +23,27 @@ Then do `composer install`.
 ```php
 $xml = new XmlConstructor();
 $in = [
-    'tag' => 'root',
-    'elements' => [
-        [
-            'tag' => 'tag1',
-            'attributes' => [
-                'attr1' => 'val1',
-                'attr2' => 'val2',
+    [
+        'tag' => 'root',
+        'elements' => [
+            [
+                'tag' => 'tag1',
+                'attributes' => [
+                    'attr1' => 'val1',
+                    'attr2' => 'val2',
+                ],
             ],
-        ],
-        [
-            'tag' => 'tag2',
-            'content' => 'content2',
-        ],
-        [
-            'tag' => 'tag3',
-            'elements' => [
-                [
-                    'tag' => 'tag4',
-                    'content' => 'content4',
+            [
+                'tag' => 'tag2',
+                'content' => 'content2',
+            ],
+            [
+                'tag' => 'tag3',
+                'elements' => [
+                    [
+                        'tag' => 'tag4',
+                        'content' => 'content4',
+                    ],
                 ],
             ],
         ],
