@@ -5,6 +5,8 @@ xml-constructor
 [![Total Downloads](https://poser.pugx.org/bupy7/xml-constructor/downloads)](https://packagist.org/packages/bupy7/xml-constructor)
 [![Latest Unstable Version](https://poser.pugx.org/bupy7/xml-constructor/v/unstable)](https://packagist.org/packages/bupy7/xml-constructor)
 [![License](https://poser.pugx.org/bupy7/xml-constructor/license)](https://packagist.org/packages/bupy7/xml-constructor)
+[![Build Status](https://travis-ci.org/bupy7/xml-constructor.svg?branch=master)](https://travis-ci.org/bupy7/xml-constructor)
+[![Coverage Status](https://coveralls.io/repos/bupy7/xml-constructor/badge.svg?branch=master&service=github)](https://coveralls.io/github/bupy7/xml-constructor?branch=master)
 
 The XML of document structure constructor.
 
