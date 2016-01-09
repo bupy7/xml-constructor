@@ -16,7 +16,7 @@
         "ext-libxml": "*"
     },
 	"require-dev": {
-	    "satooshi/php-coveralls": "dev-master"
+	    "satooshi/php-coveralls": "1.0.0"
 	},
     "autoload": {
         "psr-4": {
