@@ -1,4 +1,3 @@
 <?php
 
-// composer autoload
-require(__DIR__ . '/../vendor/autoload.php');
+require __DIR__ . '/../XmlConstructor.php';
