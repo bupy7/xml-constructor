@@ -9,8 +9,5 @@ php:
 before_script:
   - composer install --no-interaction
 
-script:
-  - phpunit
-
 after_script:
   - vendor/bin/coveralls -v
