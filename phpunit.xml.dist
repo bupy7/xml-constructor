@@ -6,7 +6,7 @@
     verbose="true"
     colors="true">
     <testsuites>
-        <testsuite name="My Tests">
+        <testsuite name="Main Tests">
             <directory>./tests</directory>
         </testsuite>
     </testsuites>
