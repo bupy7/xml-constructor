@@ -4,7 +4,7 @@
     "type": "library",
     "keywords": ["php", "library", "xml", "xml constructor", "xml writter"],
     "license": "BSD-3-Clause",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "authors": [
         {
             "name": "Vasilij Belosludcev",
@@ -20,7 +20,7 @@
 	},
     "autoload": {
         "psr-4": {
-            "bupy7\\xml\\constructor\\": ""
+            "bupy7\\xml\\constructor\\": "src"
         }
     }
 }
