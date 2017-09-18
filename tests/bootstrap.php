@@ -1,3 +1,3 @@
 <?php
 
-require __DIR__ . '/../src/XmlConstructor.php';
+require_once __DIR__ . '/../src/XmlConstructor.php';
