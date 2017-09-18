@@ -1,26 +1,35 @@
 {
-    "name": "bupy7/xml-constructor",
-    "description": "The XML of document structure constructor.",
-    "type": "library",
-    "keywords": ["php", "library", "xml", "xml constructor", "xml writter"],
-    "license": "BSD-3-Clause",
-    "version": "1.2.2",
-    "authors": [
-        {
-            "name": "Vasilij Belosludcev",
-            "email": "bupy765@gmail.com"
-        }
-    ],
-    "require": {
-        "php": ">=5.4",
-        "ext-libxml": "*"
-    },
-	"require-dev": {
-	    "satooshi/php-coveralls": "1.0.0"
-	},
-    "autoload": {
-        "psr-4": {
-            "bupy7\\xml\\constructor\\": "src"
-        }
+  "name": "bupy7/xml-constructor",
+  "description": "The XML of document structure constructor.",
+  "type": "library",
+  "keywords": [
+    "php",
+    "library",
+    "xml",
+    "xml constructor",
+    "xml writter",
+    "xml maker"
+  ],
+  "license": "BSD-3-Clause",
+  "version": "1.2.2",
+  "authors": [
+    {
+      "name": "Vasilij Belosludcev",
+      "email": "bupy765@gmail.com"
     }
+  ],
+  "require": {
+    "php": ">=5.4",
+    "ext-libxml": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^4.8 || ^6.3",
+    "satooshi/php-coveralls": "^1.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "bupy7\\xml\\constructor\\": "src",
+      "bupy7\\xml\\constructor\\tests\\": "tests"
+    }
+  }
 }

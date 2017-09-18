@@ -2,14 +2,13 @@
 
 namespace bupy7\xml\constructor\tests;
 
-use PHPUnit_Framework_TestCase;
 use bupy7\xml\constructor\XmlConstructor;
 
 /**
  * @author Belosludcev Vasilij <https://github.com/bupy7>
  * @since 1.2.1
  */
-class XmlConstructTest extends PHPUnit_Framework_TestCase
+class XmlConstructTest extends TestCase
 {
     protected $in = [
         [
