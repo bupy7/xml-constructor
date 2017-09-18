@@ -1,0 +1,15 @@
+version: '2'
+
+volumes:
+    logs:
+        driver: local
+
+services:
+    php:
+        build: .
+        working_dir: /var/www
+        environment:
+            docker: "true"
+        volumes:
+            - .:/var/www
+            - logs:/var/www/logs
