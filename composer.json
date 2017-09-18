@@ -14,7 +14,7 @@
   "version": "1.2.2",
   "authors": [
     {
-      "name": "Vasilij Belosludcev",
+      "name": "Vaseelie Belosloodcev",
       "email": "bupy765@gmail.com"
     }
   ],
@@ -23,8 +23,8 @@
     "ext-libxml": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": ">=4.8 <7.0",
-    "satooshi/php-coveralls": "^1.0.0"
+    "phpunit/phpunit": "^4.8",
+    "satooshi/php-coveralls": "^1.0"
   },
   "autoload": {
     "psr-4": {

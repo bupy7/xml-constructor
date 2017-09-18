@@ -3,3 +3,4 @@
 /.idea
 /logs
 /vendor
+/composer.lock
