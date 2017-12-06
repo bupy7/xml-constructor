@@ -54,6 +54,12 @@ $in = [
 echo $xml->fromArray($in)->toOutput();
 ```
 
+if you send data to browser raw, use header for content type:
+
+```php
+header('Content-Type: application/xml; charset=utf-8');
+```
+
 ### License
 
 **xml-constructor** is released under the BSD 3-Clause License. See the bundled `LICENSE.md` for details.
