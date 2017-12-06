@@ -1,6 +1,11 @@
 xml-constrcutor
 ===============
 
+v1.2.4 [2017-12-06]
+-------------------
+
+- Small notice in README about headers. (pandalowry)
+
 v1.2.3 [2017-11-30]
 -------------------
 
