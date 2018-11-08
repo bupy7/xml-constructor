@@ -87,6 +87,7 @@ class XmlConstructor extends XMLWriter
             if (isset($element['attributes']) && is_array($element['attributes'])) {
                 $attributes = $element['attributes'];
             }
+            $content = null;
             if (isset($element['content'])) {
                 $content = $element['content'];
             } elseif (isset($element['elements']) && is_array($element['elements'])) {
