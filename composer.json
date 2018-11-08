@@ -11,11 +11,11 @@
     "xml maker"
   ],
   "license": "BSD-3-Clause",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "authors": [
     {
-      "name": "Vaseelie Belosloodcev",
-      "email": "bupy765@gmail.com"
+      "name": "Vasily Belosloodcev",
+      "email": "vasily.belosloodcev@gmail.com"
     }
   ],
   "require": {
