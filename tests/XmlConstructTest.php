@@ -56,6 +56,26 @@ class XmlConstructTest extends TestCase
             ],
         ],
     ];
+    /**
+     * @since 1.3.0
+     * @var array
+     */
+    private $in3 = [
+        [
+            'tag' => 'root',
+            'elements' => [
+                [
+                    'tag' => 'tag1',
+                    'content' => '<b>content1</b>',
+                    'cdata' => true,
+                ],
+                [
+                    'tag' => 'tag2',
+                    'content' => 'content2',
+                ],
+            ],
+        ],
+    ];
     
     public function testDefaultDocument1()
     {
@@ -119,6 +139,23 @@ XML;
 XML;
         $xml = new XmlConstructor(['indentString' => false]);
         $out2 = $xml->fromArray($this->in1)->toOutput();
+        $this->assertEquals($this->prepare($out1), $this->prepare($out2));
+    }
+
+    /**
+     * @since 1.3.0
+     */
+    public function testCdataContent()
+    {
+        $out1 = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <tag1><![CDATA[<b>content1</b>]]></tag1>
+    <tag2>content2</tag2>
+</root>
+XML;
+        $xml = new XmlConstructor(['indentString' => false]);
+        $out2 = $xml->fromArray($this->in3)->toOutput();
         $this->assertEquals($this->prepare($out1), $this->prepare($out2));
     }
     

@@ -35,6 +35,11 @@ use XMLWriter;
  *                     ],
  *                 ],
  *             ],
+ *             [
+ *                 'tag' => 'tag4',
+ *                 'content' => '<b>content4</b>',
+ *                 'cdata' => true, // by default - false
+ *             ],
  *         ],
  *     ],
  * ];
@@ -103,7 +108,11 @@ class XmlConstructor extends XMLWriter
                 if (is_array($content)) {
                     $this->fromArray($content);
                 } else {
-                    $this->text($content);
+                    if (isset($element['cdata']) && $element['cdata']) {
+                        $this->writeCdata($content);
+                    } else {
+                        $this->text($content);
+                    }
                 }
             }
             $this->endElement();  

@@ -1,6 +1,12 @@
 xml-constrcutor
 ===============
 
+v1.3.0 [2018-11-22]
+-------------------
+
+- Added [CData](http://php.net/manual/ru/function.xmlwriter-write-cdata.php) feature.
+- No longer support for PHP 5.5, 5.6 and HHVM.
+
 v1.2.5 [2018-11-08]
 -------------------
 
