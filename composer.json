@@ -23,7 +23,7 @@
     "ext-libxml": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": "^5.7.27",
+    "phpunit/phpunit": ">=5.7.27",
     "satooshi/php-coveralls": "^1.0.1 || ^2.0"
   },
   "autoload": {
