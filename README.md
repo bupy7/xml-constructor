@@ -48,6 +48,11 @@ $in = [
                     ],
                 ],
             ],
+            [
+                'tag' => 'tag4',
+                'content' => '<b>content4</b>',
+                'cdata' => true, // by default - false
+            ],
         ],
     ],
 ];
