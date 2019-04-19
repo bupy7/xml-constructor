@@ -1,6 +1,11 @@
 xml-constrcutor
 ===============
 
+v1.3.1 [2019-04-19]
+-------------------
+
+- Just upgraded README because of skiped CData description.
+
 v1.3.0 [2018-11-22]
 -------------------
 
