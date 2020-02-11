@@ -1,5 +1,5 @@
 xml-constructor
----------------
+===
 
 [![Latest Stable Version](https://poser.pugx.org/bupy7/xml-constructor/v/stable)](https://packagist.org/packages/bupy7/xml-constructor)
 [![Total Downloads](https://poser.pugx.org/bupy7/xml-constructor/downloads)](https://packagist.org/packages/bupy7/xml-constructor)
@@ -10,7 +10,8 @@ xml-constructor
 
 The XML of document structure constructor.
 
-### Install
+Install
+---
 
 Add the following to `require` section of your `composer.json`:
 
@@ -20,7 +21,8 @@ Add the following to `require` section of your `composer.json`:
 
 Then do `composer install`.
 
-### Usage
+Usage
+---
 
 ```php
 $xml = new XmlConstructor();
@@ -65,6 +67,7 @@ if you send data to browser raw, use header for content type:
 header('Content-Type: application/xml; charset=utf-8');
 ```
 
-### License
+License
+---
 
 **xml-constructor** is released under the BSD 3-Clause License. See the bundled `LICENSE.md` for details.

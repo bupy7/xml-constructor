@@ -8,8 +8,7 @@ services:
     php:
         build: .
         working_dir: /var/www
-        environment:
-            docker: "true"
+        tty: true
         volumes:
             - .:/var/www
             - logs:/var/www/logs

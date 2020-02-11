@@ -1,4 +1,4 @@
-Copyright (c) 2015, Vasilij Belosludcev
+Copyright (c) 2015, Vasily Belosloodcev
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
