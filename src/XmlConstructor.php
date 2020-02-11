@@ -166,7 +166,7 @@ class XmlConstructor extends XMLWriter
     }
     
     /**
-     * Tooggle identation on.
+     * Toggle indentation on.
      * @param string|false $string String used for indenting.
      * @since 1.2.0
      */
