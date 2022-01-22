@@ -46,8 +46,7 @@ use XMLWriter;
  * $xml->fromArray($in);
  * echo $xml->toOutput();
  * ~~~
- * 
- * @author Belosludcev Vasilij <https://github.com/bupy7>
+ *
  * @see http://php.net/manual/ru/ref.xmlwriter.php
  * @since 1.0.0
  */
