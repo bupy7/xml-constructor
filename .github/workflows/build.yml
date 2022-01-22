@@ -31,13 +31,16 @@ jobs:
           extensions: xmlwriter
           tools: composer:v2
 
+      - name: Get Composer Cache Directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
       - name: Cache Composer packages
         uses: actions/cache@v2
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: php${{ matrix.php }}-composer-${{ hashFiles('**/composer.json') }}
-          restore-keys: |
-            php${{ matrix.php }}-composer-
+          restore-keys: php${{ matrix.php }}-composer-
 
       - name: Install dependencies
         run: composer install --no-plugins
