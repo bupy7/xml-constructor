@@ -7,6 +7,7 @@ v1.3.3 [2022-01-22]
 - Support PHP 8.0, 8.1.
 - Removed the `@author` PHPDoc tag.
 - Enhancement the README.
+- Moved from Travis-CI to GitHub Actions.
 
 v1.3.2 [2020-02-11]
 ---
