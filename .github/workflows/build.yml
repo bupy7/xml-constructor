@@ -34,7 +34,7 @@ jobs:
       - name: Cache Composer packages
         uses: actions/cache@v2
         with:
-          path: $(composer config cache-dir)
+          path: ${{ steps.composer-cache.outputs.dir }}
           key: php${{ matrix.php }}-composer-${{ hashFiles('**/composer.json') }}
           restore-keys: |
             php${{ matrix.php }}-composer-
