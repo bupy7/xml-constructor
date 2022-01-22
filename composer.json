@@ -23,16 +23,12 @@
     "ext-xmlwriter": "*"
   },
   "require-dev": {
-    "phpunit/phpunit": ">=5.7.27",
-    "php-coveralls/php-coveralls": "^2.2"
+    "phpunit/phpunit": ">=5.7.27"
   },
   "autoload": {
     "psr-4": {
       "bupy7\\xml\\constructor\\": "src",
       "bupy7\\xml\\constructor\\tests\\": "tests"
     }
-  },
-  "scripts": {
-    "test:run": "php vendor/bin/phpunit --no-coverage"
   }
 }

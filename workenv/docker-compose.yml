@@ -1,14 +1,14 @@
 version: '3'
 
 services:
-    php-cli:
-        build:
-            context: workenv
-            args:
-                - GITHUB_OAUTH_TOKEN=<YOUR_TOKEN>
-        working_dir: /app
-        tty: true
-        volumes:
-            - type: bind
-              source: ./
-              target: /app
+  php-cli:
+    build:
+      context: workenv
+      args:
+        - GITHUB_OAUTH_TOKEN=<YOUR_TOKEN>
+    working_dir: /app
+    tty: true
+    volumes:
+      - type: bind
+        source: ./
+        target: /app

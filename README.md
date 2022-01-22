@@ -83,6 +83,23 @@ echo $xml->fromArray($in)->toOutput();
 </root>
 ```
 
+Testing
+---
+
+Run tests:
+
+```
+$ ./vendor/bin/phpunit --no-coverage
+```
+
+Run tests with coverage:
+
+```
+$ XDEBUG_MODE=coverage ./vendor/bin/phpunit
+```
+
+HTML coverage path: `build/coverage/index.html`
+
 License
 ---
 
