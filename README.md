@@ -8,7 +8,7 @@ xml-constructor
 [![Build Status](https://travis-ci.org/bupy7/xml-constructor.svg?branch=master)](https://travis-ci.org/bupy7/xml-constructor)
 [![Coverage Status](https://coveralls.io/repos/bupy7/xml-constructor/badge.svg?branch=master&service=github)](https://coveralls.io/github/bupy7/xml-constructor?branch=master)
 
-The XML of document structure constructor.
+The array-like constructor of XML document structure.
 
 Install
 ---
@@ -19,10 +19,18 @@ Add the following to `require` section of your `composer.json`:
 "bupy7/xml-constructor": "*"
 ```
 
-Then do `composer install`.
+Then do `composer install`;
+
+or execute the command:
+
+```
+$ composer require bupy7/xml-constructor
+```
 
 Usage
 ---
+
+**Input:**
 
 ```php
 $xml = new XmlConstructor();
@@ -53,7 +61,7 @@ $in = [
             [
                 'tag' => 'tag4',
                 'content' => '<b>content4</b>',
-                'cdata' => true, // by default - false
+                'cdata' => true, // by default - false, see https://en.wikipedia.org/wiki/CDATA
             ],
         ],
     ],
@@ -61,10 +69,18 @@ $in = [
 echo $xml->fromArray($in)->toOutput();
 ```
 
-if you send data to browser raw, use header for content type:
+**Output:**
 
-```php
-header('Content-Type: application/xml; charset=utf-8');
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <tag1 attr1="val1" attr2="val2"/>
+    <tag2>content2</tag2>
+    <tag3>
+        <tag4>content4</tag4>
+    </tag3>
+    <tag4><![CDATA[<b>content4</b>]]></tag4>
+</root>
 ```
 
 License
