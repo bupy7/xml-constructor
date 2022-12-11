@@ -1,6 +1,6 @@
-FROM php:8.1-cli-alpine
+FROM php:8.2-cli-alpine
 
-RUN apk add --no-cache $PHPIZE_DEPS
+RUN apk add --no-cache $PHPIZE_DEPS && apk add --update --no-cache linux-headers
 
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 RUN rm -f /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini

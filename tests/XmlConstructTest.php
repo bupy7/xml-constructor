@@ -88,7 +88,7 @@ class XmlConstructTest extends TestCase
     </tag3>
 </root>
 XML;
-        $xml = new XmlConstructor;
+        $xml = new XmlConstructor();
         $out2 = $xml->fromArray($this->in1)->toOutput();
         $this->assertEquals($this->prepare($out1), $this->prepare($out2));
     }
@@ -103,12 +103,12 @@ XML;
     <tag3/>
 </root>
 XML;
-        $xml = new XmlConstructor;
+        $xml = new XmlConstructor();
         $out2 = $xml->fromArray($this->in2)->toOutput();
         $this->assertEquals($this->prepare($out1), $this->prepare($out2));
     }
 
-    public function testWithoutStartDocument()
+    public function testWithoutStartDocument1()
     {
         $out1 = <<<XML
 <root>
@@ -123,8 +123,25 @@ XML;
         $out2 = $xml->fromArray($this->in1)->toOutput();
         $this->assertEquals($this->prepare($out1), $this->prepare($out2));
     }
+
+    public function testWithoutStartDocument2()
+    {
+        $out1 = <<<XML
+<?xml version="1.1" encoding="ASCII"?>
+<root>
+    <tag1 attr1="val1" attr2="val2"/>
+    <tag2>content2</tag2>
+    <tag3>
+        <tag4>content4</tag4>
+    </tag3>
+</root>
+XML;
+        $xml = new XmlConstructor(['startDocument' => ['1.1', 'ASCII']]);
+        $out2 = $xml->fromArray($this->in1)->toOutput();
+        $this->assertEquals($this->prepare($out1), $this->prepare($out2));
+    }
     
-    public function testCustomIndentString()
+    public function testCustomIndentString1()
     {
         $out1 = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -137,6 +154,23 @@ XML;
 </root>
 XML;
         $xml = new XmlConstructor(['indentString' => false]);
+        $out2 = $xml->fromArray($this->in1)->toOutput();
+        $this->assertEquals($this->prepare($out1), $this->prepare($out2));
+    }
+
+    public function testCustomIndentString2()
+    {
+        $out1 = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+-<tag1 attr1="val1" attr2="val2"/>
+-<tag2>content2</tag2>
+-<tag3>
+--<tag4>content4</tag4>
+-</tag3>
+</root>
+XML;
+        $xml = new XmlConstructor(['indentString' => '-']);
         $out2 = $xml->fromArray($this->in1)->toOutput();
         $this->assertEquals($this->prepare($out1), $this->prepare($out2));
     }
@@ -163,7 +197,7 @@ XML;
         $out1 = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 XML;
-        $xml = new XmlConstructor;
+        $xml = new XmlConstructor();
         $out2 = $xml->fromArray(['incorrect' => 'array'])->toOutput();
         $this->assertEquals($this->prepare($out1), $this->prepare($out2));
     }

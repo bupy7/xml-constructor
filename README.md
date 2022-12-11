@@ -9,7 +9,7 @@ xml-constructor
 
 The array-like constructor of XML document structure.
 
-Supporting PHP from 5.6 up to 8.1.
+Supporting PHP from 5.6 up to 8.2.
 
 Install
 ---

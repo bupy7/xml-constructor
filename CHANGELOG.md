@@ -1,6 +1,12 @@
 xml-constrcutor
 ===
 
+v1.3.4 [2022-12-11]
+---
+
+- Support of PHP 8.2.
+- Added some more tests.
+
 v1.3.3 [2022-01-22]
 ---
 

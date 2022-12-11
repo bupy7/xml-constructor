@@ -75,7 +75,7 @@ class XmlConstructor extends XMLWriter
     /**
      * Construct elements and texts from an array.
      * The array should contain an attribute's name in index part.
-     * and a attribute's text in value part.
+     * and an attribute's text in value part.
      * 
      * @param array $in Contains tags, attributes and texts.
      * @return static
@@ -173,7 +173,7 @@ class XmlConstructor extends XMLWriter
     {
         if ($string !== false) {
             $this->setIndent(true);
-            parent::setIndentString($string);
+            $this->setIndentString($string);
         }
     }
     
