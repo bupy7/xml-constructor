@@ -1,6 +1,11 @@
 xml-constrcutor
 ===
 
+v1.3.5 [2022-12-12]
+---
+
+- Reduce size of package.
+
 v1.3.4 [2022-12-11]
 ---
 
