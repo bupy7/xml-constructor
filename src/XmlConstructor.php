@@ -161,11 +161,11 @@ class XmlConstructor
             throw new RuntimeException('The constructor is closed. You have to create new one to flush its again.');
         }
 
+        $this->flushed = true;
+
         if ($this->hasDocumentStart) {
             $this->document->endDocument();
         }
-
-        $this->flushed = true;
 
         return $this->document->outputMemory();
     }
