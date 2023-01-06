@@ -58,9 +58,13 @@ class XmlConstructor
     /**
      * @var boolean
      */
+    private $flushed = false;
+    /**
+     * @var boolean
+     */
     private $hasDocumentStart = false;
     /**
-     * @var XMLWriter|null
+     * @var XMLWriter
      */
     private $document;
 
@@ -135,7 +139,7 @@ class XmlConstructor
      */
     public function fromArray(array $in)
     {
-        if ($this->document === null) {
+        if ($this->flushed) {
             throw new RuntimeException('The constructor is closed. You have to create new one to create an XML document'
                 . ' again.');
         }
@@ -153,7 +157,7 @@ class XmlConstructor
      */
     public function toOutput()
     {
-        if ($this->document === null) {
+        if ($this->flushed) {
             throw new RuntimeException('The constructor is closed. You have to create new one to flush its again.');
         }
 
@@ -161,11 +165,9 @@ class XmlConstructor
             $this->document->endDocument();
         }
 
-        $output = $this->document->outputMemory();
+        $this->flushed = true;
 
-        $this->document = null;
-
-        return $output;
+        return $this->document->outputMemory();
     }
 
     /**
