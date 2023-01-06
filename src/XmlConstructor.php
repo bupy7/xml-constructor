@@ -60,7 +60,7 @@ class XmlConstructor
      */
     private $hasDocumentStart = false;
     /**
-     * @var XMLWriter
+     * @var XMLWriter|null
      */
     private $document;
 
