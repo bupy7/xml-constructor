@@ -4,6 +4,11 @@ namespace bupy7\xml\constructor;
 
 use XMLWriter;
 
+use function call_user_func_array;
+use function is_array;
+use function is_string;
+use function str_repeat;
+
 /**
  * Creating an XML document from an array.
  * 
