@@ -5,6 +5,8 @@ namespace bupy7\xml\constructor\tests;
 use bupy7\xml\constructor\RuntimeException;
 use bupy7\xml\constructor\XmlConstructor;
 
+use function preg_replace;
+
 /**
  * @since 1.2.1
  */
