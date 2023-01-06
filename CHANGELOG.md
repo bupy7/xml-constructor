@@ -1,6 +1,14 @@
 xml-constrcutor
 ===
 
+v2.0.0 [2023-01-06]
+---
+
+- Now `bupy7\xml\constructor\XmlConstructor` is a plain PHP class which doesn't extend the `XMLWriter`.
+- Call `bupy7\xml\constructor\XmlConstructor::fromArray()` or `bupy7\xml\constructor\XmlConstructor::toOutput()` more 
+than once is not supported and will throw an exception.
+- Some small fixes and enhancements.
+
 v1.3.5 [2022-12-12]
 ---
 

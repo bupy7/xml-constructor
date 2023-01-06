@@ -2,6 +2,7 @@
 
 namespace bupy7\xml\constructor\tests;
 
+use bupy7\xml\constructor\RuntimeException;
 use bupy7\xml\constructor\XmlConstructor;
 
 /**
@@ -56,7 +57,6 @@ class XmlConstructTest extends TestCase
         ],
     ];
     /**
-     * @since 1.3.0
      * @var array
      */
     private $in3 = [
@@ -87,10 +87,11 @@ class XmlConstructTest extends TestCase
         <tag4>content4</tag4>
     </tag3>
 </root>
+
 XML;
         $xml = new XmlConstructor();
         $out2 = $xml->fromArray($this->in1)->toOutput();
-        $this->assertEquals($this->prepare($out1), $this->prepare($out2));
+        $this->assertEquals($out1, $out2);
     }
 
     public function testDefaultDocument2()
@@ -102,13 +103,14 @@ XML;
     <tag2>content2</tag2>
     <tag3/>
 </root>
+
 XML;
         $xml = new XmlConstructor();
         $out2 = $xml->fromArray($this->in2)->toOutput();
-        $this->assertEquals($this->prepare($out1), $this->prepare($out2));
+        $this->assertEquals($out1, $out2);
     }
 
-    public function testWithoutStartDocument1()
+    public function testWithoutStartDocument()
     {
         $out1 = <<<XML
 <root>
@@ -118,13 +120,14 @@ XML;
         <tag4>content4</tag4>
     </tag3>
 </root>
+
 XML;
         $xml = new XmlConstructor(['startDocument' => false]);
         $out2 = $xml->fromArray($this->in1)->toOutput();
-        $this->assertEquals($this->prepare($out1), $this->prepare($out2));
+        $this->assertEquals($out1, $out2);
     }
 
-    public function testWithoutStartDocument2()
+    public function testWithStartDocument()
     {
         $out1 = <<<XML
 <?xml version="1.1" encoding="ASCII"?>
@@ -135,10 +138,11 @@ XML;
         <tag4>content4</tag4>
     </tag3>
 </root>
+
 XML;
         $xml = new XmlConstructor(['startDocument' => ['1.1', 'ASCII']]);
         $out2 = $xml->fromArray($this->in1)->toOutput();
-        $this->assertEquals($this->prepare($out1), $this->prepare($out2));
+        $this->assertEquals($out1, $out2);
     }
     
     public function testCustomIndentString1()
@@ -191,8 +195,11 @@ XML;
         $out2 = $xml->fromArray($this->in3)->toOutput();
         $this->assertEquals($this->prepare($out1), $this->prepare($out2));
     }
-    
-    public function testError()
+
+    /**
+     * @since 2.0.0
+     */
+    public function testInvalidConfiguration()
     {
         $out1 = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
@@ -200,6 +207,61 @@ XML;
         $xml = new XmlConstructor();
         $out2 = $xml->fromArray(['incorrect' => 'array'])->toOutput();
         $this->assertEquals($this->prepare($out1), $this->prepare($out2));
+    }
+
+    /**
+     * @since 2.0.0
+     */
+    public function testDoubleToOutput()
+    {
+        $out1 = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <tag1 attr1="val1" attr2="val2"/>
+    <tag2>content2</tag2>
+    <tag3>
+        <tag4>content4</tag4>
+    </tag3>
+</root>
+XML;
+        $xml = new XmlConstructor();
+
+        $out2 = $xml->fromArray($this->in1)->toOutput();
+        $this->assertEquals($this->prepare($out1), $this->prepare($out2));
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('The constructor is closed. You have to create new one to flush its again.');
+        $xml->toOutput();
+    }
+
+    /**
+     * @since 2.0.0
+     */
+    public function testDoubleFromArray()
+    {
+        $out1 = <<<XML
+<?xml version="1.1" encoding="ASCII"?>
+<root>
+ <tag1 attr1="val1" attr2="val2"/>
+ <tag2>content2</tag2>
+ <tag3>
+  <tag4>content4</tag4>
+ </tag3>
+</root>
+
+XML;
+        $xml = new XmlConstructor([
+            'startDocument' => ['1.1', 'ASCII'],
+            'indentString' => ' ',
+        ]);
+
+        $out2 = $xml->fromArray($this->in1)->toOutput();
+        $this->assertEquals($out1, $out2);
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('The constructor is closed. You have to create new one to create '
+            . 'an XML document again.');
+        $xml->fromArray($this->in1);
     }
 
     /**

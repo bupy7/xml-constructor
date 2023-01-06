@@ -5,11 +5,10 @@ namespace bupy7\xml\constructor;
 use XMLWriter;
 
 /**
- * Creating XML document from array.
+ * Creating an XML document from an array.
  * 
- * Example:
- * 
- * ~~~
+ * Usage:
+ *
  * $xml = new XmlConstructor();
  * $in = [
  *     [
@@ -45,42 +44,155 @@ use XMLWriter;
  * ];
  * $xml->fromArray($in);
  * echo $xml->toOutput();
- * ~~~
  *
  * @see http://php.net/manual/ru/ref.xmlwriter.php
  * @since 1.0.0
  */
-class XmlConstructor extends XMLWriter
+class XmlConstructor
 {
     /**
-     * @var boolean Flag of completed preparing.
+     * @var boolean
      */
-    private $_prepared = false;
+    private $hasDocumentStart = false;
     /**
-     * @var boolean Flag of added start document tag.
-     * @since 1.2.0
+     * @var XMLWriter
      */
-    private $_startDocument = false;
-    
+    private $document;
+
     /**
-     * Constructor of XML document structure.
      * @param array $config name-value pairs that will be used to initialize the object
      */
     public function __construct(array $config = [])
     {
-        $this->openMemory();
-        $this->configure($config);
+        $this->document = new XMLWriter();
+        $this->document->openMemory();
+
+        // see XMLWriter::setIndent() and XMLWriter::setIndentString()
+        if (isset($config['indentString'])) {
+            if (is_string($config['indentString'])) {
+                $this->setIndent($config['indentString']);
+            }
+        } else {
+            $this->setIndent(str_repeat(' ', 4));
+        }
+        // see XMLWriter::startDocument()
+        if (isset($config['startDocument'])) {
+            if (is_array($config['startDocument'])) {
+                call_user_func_array([$this, 'setDocumentStart'], $config['startDocument']);
+            }
+        } else {
+            $this->setDocumentStart('1.0', 'UTF-8');
+        }
     }
 
     /**
-     * Construct elements and texts from an array.
-     * The array should contain an attribute's name in index part.
-     * and an attribute's text in value part.
+     * Make XML document from an array.
+     * The array should contain an attribute name in index part and an attribute text in value part.
+     *
+     * Example:
+     *
+     * $xml->fromArray([
+     *     [
+     *         'tag' => 'root',
+     *         'elements' => [
+     *             [
+     *                 'tag' => 'tag1',
+     *                 'attributes' => [
+     *                     'attr1' => 'val1',
+     *                     'attr2' => 'val2',
+     *                 ],
+     *             ],
+     *             [
+     *                 'tag' => 'tag2',
+     *                 'content' => 'content2',
+     *             ],
+     *             [
+     *                 'tag' => 'tag3',
+     *                 'elements' => [
+     *                     [
+     *                         'tag' => 'tag4',
+     *                         'content' => 'content4',
+     *                     ],
+     *                 ],
+     *             ],
+     *             [
+     *                 'tag' => 'tag4',
+     *                 'content' => '<b>content4</b>',
+     *                 'cdata' => true, // by default - false
+     *             ],
+     *         ],
+     *     ],
+     * ]);
      * 
-     * @param array $in Contains tags, attributes and texts.
+     * @param array $in XML document structure as PHP array.
      * @return static
+     * @throws RuntimeException
      */
-    public function fromArray($in)
+    public function fromArray(array $in)
+    {
+        if ($this->document === null) {
+            throw new RuntimeException('The constructor is closed. You have to create new one to create an XML document'
+                . ' again.');
+        }
+
+        $this->_fromArray($in);
+
+        return $this;
+    }
+
+    /**
+     * Return the content of a current xml document.
+     * @return string XML document.
+     * @throws RuntimeException
+     * @since 1.1.0
+     */
+    public function toOutput()
+    {
+        if ($this->document === null) {
+            throw new RuntimeException('The constructor is closed. You have to create new one to flush its again.');
+        }
+
+        if ($this->hasDocumentStart) {
+            $this->document->endDocument();
+        }
+
+        $output = $this->document->outputMemory();
+
+        $this->document = null;
+
+        return $output;
+    }
+
+    /**
+     * @param string $indent
+     * @return void
+     * @see XMLWriter::setIndent()
+     * @see XMLWriter::setIndentString()
+     */
+    private function setIndent($indent)
+    {
+        $this->document->setIndent(true);
+        $this->document->setIndentString($indent);
+    }
+
+    /**
+     * @param string $version
+     * @param string|null $encoding
+     * @param string|null $standalone
+     * @return void
+     * @see XMLWriter::startDocument()
+     */
+    private function setDocumentStart($version = '1.0', $encoding = null, $standalone = null)
+    {
+        $this->document->startDocument($version, $encoding, $standalone);
+        $this->hasDocumentStart = true;
+    }
+
+    /**
+     * @param array $in
+     * @return void
+     */
+    private function _fromArray(array $in)
     {
         foreach ($in as $element) {
             if (!is_array($element) || !isset($element['tag'])) {
@@ -97,97 +209,22 @@ class XmlConstructor extends XMLWriter
             } elseif (isset($element['elements']) && is_array($element['elements'])) {
                 $content = $element['elements'];
             }
-            $this->startElement($tag);
-            if (is_array($attributes)) {
-                foreach ($attributes as $attribute => $value) {
-                    $this->writeAttribute($attribute, $value);
-                }
+            $this->document->startElement($tag);
+            foreach ($attributes as $attribute => $value) {
+                $this->document->writeAttribute($attribute, $value);
             }
             if (isset($content)) {
                 if (is_array($content)) {
-                    $this->fromArray($content);
+                    $this->_fromArray($content);
                 } else {
                     if (isset($element['cdata']) && $element['cdata']) {
-                        $this->writeCdata($content);
+                        $this->document->writeCdata($content);
                     } else {
-                        $this->text($content);
+                        $this->document->text($content);
                     }
                 }
             }
-            $this->endElement();  
-        }
-        return $this;
-    }
-
-    /**
-     * Return the content of a current xml document.
-     * @return string XML document.
-     * @since 1.1.0
-     */
-    public function toOutput()
-    {
-        return $this->preparing()->outputMemory();
-    }
-    
-    /**
-     * Preparing document to output.
-     * @return static
-     */
-    protected function preparing()
-    {
-        if (!$this->_prepared) {
-            if ($this->_startDocument) {
-                $this->endDocument();
-            }
-            $this->_prepared = true;
-        }
-        return $this;
-    }
-    
-    /**
-     * Configures an object with the initial property values.
-     * @param array $config name-value pairs that will be used to initialize the object
-     * @since 1.2.0
-     */
-    protected function configure(array $config)
-    {
-        if (isset($config['indentString'])) {
-            $this->configIndentString($config['indentString']);
-        } else {
-            $this->configIndentString(str_repeat(' ', 4));
-        }
-
-        if (isset($config['startDocument'])) {
-            $this->configStartDocument($config['startDocument']);
-        } else {
-            $this->configStartDocument(['1.0', 'UTF-8']);
-        }
-    }
-    
-    /**
-     * Toggle indentation on.
-     * @param string|false $string String used for indenting.
-     * @since 1.2.0
-     */
-    protected function configIndentString($string)
-    {
-        if ($string !== false) {
-            $this->setIndent(true);
-            $this->setIndentString($string);
-        }
-    }
-    
-    /**
-     * Create document tag.
-     * @param array|false $arguments Arguments of method `startDocument()`.
-     * @since 1.2.0
-     */
-    protected function configStartDocument($arguments)
-    {
-        if (is_array($arguments)) {
-            if (call_user_func_array([$this, 'startDocument'], $arguments)) {
-                $this->_startDocument = true;
-            }
+            $this->document->endElement();
         }
     }
 }
