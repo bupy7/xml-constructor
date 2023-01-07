@@ -8,6 +8,7 @@ use function call_user_func_array;
 use function is_array;
 use function is_string;
 use function str_repeat;
+use function array_key_exists;
 
 /**
  * Creating an XML document from an array.
@@ -77,7 +78,7 @@ class XmlConstructor
         $this->document->openMemory();
 
         // see XMLWriter::setIndent() and XMLWriter::setIndentString()
-        if (isset($config['indentString'])) {
+        if (array_key_exists('indentString', $config)) {
             if (is_string($config['indentString'])) {
                 $this->setIndent($config['indentString']);
             }
@@ -85,7 +86,7 @@ class XmlConstructor
             $this->setIndent(str_repeat(' ', 4));
         }
         // see XMLWriter::startDocument()
-        if (isset($config['startDocument'])) {
+        if (array_key_exists('startDocument', $config)) {
             if (is_array($config['startDocument'])) {
                 call_user_func_array([$this, 'setDocumentStart'], $config['startDocument']);
             }

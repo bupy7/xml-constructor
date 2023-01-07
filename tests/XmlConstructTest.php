@@ -80,7 +80,7 @@ class XmlConstructTest extends TestCase
 
     public function testDefaultDocument1()
     {
-        $out1 = <<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
     <tag1 attr1="val1" attr2="val2"/>
@@ -92,13 +92,13 @@ class XmlConstructTest extends TestCase
 
 XML;
         $xml = new XmlConstructor();
-        $out2 = $xml->fromArray($this->in1)->toOutput();
-        $this->assertEquals($out1, $out2);
+        $out = $xml->fromArray($this->in1)->toOutput();
+        $this->assertEquals($expected, $out);
     }
 
     public function testDefaultDocument2()
     {
-        $out1 = <<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
     <tag1/>
@@ -108,13 +108,16 @@ XML;
 
 XML;
         $xml = new XmlConstructor();
-        $out2 = $xml->fromArray($this->in2)->toOutput();
-        $this->assertEquals($out1, $out2);
+        $out = $xml->fromArray($this->in2)->toOutput();
+        $this->assertEquals($expected, $out);
     }
 
-    public function testWithoutStartDocument()
+    /**
+     * @since 2.0.1
+     */
+    public function testWithoutStartDocument1()
     {
-        $out1 = <<<XML
+        $expected = <<<XML
 <root>
     <tag1 attr1="val1" attr2="val2"/>
     <tag2>content2</tag2>
@@ -125,13 +128,33 @@ XML;
 
 XML;
         $xml = new XmlConstructor(['startDocument' => false]);
-        $out2 = $xml->fromArray($this->in1)->toOutput();
-        $this->assertEquals($out1, $out2);
+        $out = $xml->fromArray($this->in1)->toOutput();
+        $this->assertEquals($expected, $out);
+    }
+
+    /**
+     * @since 2.0.1
+     */
+    public function testWithoutStartDocument2()
+    {
+        $expected = <<<XML
+<root>
+    <tag1 attr1="val1" attr2="val2"/>
+    <tag2>content2</tag2>
+    <tag3>
+        <tag4>content4</tag4>
+    </tag3>
+</root>
+
+XML;
+        $xml = new XmlConstructor(['startDocument' => null]);
+        $out = $xml->fromArray($this->in1)->toOutput();
+        $this->assertEquals($expected, $out);
     }
 
     public function testWithStartDocument()
     {
-        $out1 = <<<XML
+        $expected = <<<XML
 <?xml version="1.1" encoding="ASCII"?>
 <root>
     <tag1 attr1="val1" attr2="val2"/>
@@ -143,30 +166,25 @@ XML;
 
 XML;
         $xml = new XmlConstructor(['startDocument' => ['1.1', 'ASCII']]);
-        $out2 = $xml->fromArray($this->in1)->toOutput();
-        $this->assertEquals($out1, $out2);
+        $out = $xml->fromArray($this->in1)->toOutput();
+        $this->assertEquals($expected, $out);
     }
 
     public function testCustomIndentString1()
     {
-        $out1 = <<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<root>
-    <tag1 attr1="val1" attr2="val2"/>
-    <tag2>content2</tag2>
-    <tag3>
-        <tag4>content4</tag4>
-    </tag3>
-</root>
+<root><tag1 attr1="val1" attr2="val2"/><tag2>content2</tag2><tag3><tag4>content4</tag4></tag3></root>
+
 XML;
         $xml = new XmlConstructor(['indentString' => false]);
-        $out2 = $xml->fromArray($this->in1)->toOutput();
-        $this->assertEquals($this->prepare($out1), $this->prepare($out2));
+        $out = $xml->fromArray($this->in1)->toOutput();
+        $this->assertEquals($expected, $out);
     }
 
     public function testCustomIndentString2()
     {
-        $out1 = <<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
 -<tag1 attr1="val1" attr2="val2"/>
@@ -175,10 +193,26 @@ XML;
 --<tag4>content4</tag4>
 -</tag3>
 </root>
+
 XML;
         $xml = new XmlConstructor(['indentString' => '-']);
-        $out2 = $xml->fromArray($this->in1)->toOutput();
-        $this->assertEquals($this->prepare($out1), $this->prepare($out2));
+        $out = $xml->fromArray($this->in1)->toOutput();
+        $this->assertEquals($expected, $out);
+    }
+
+    /**
+     * @since 2.0.1
+     */
+    public function testCustomIndentString3()
+    {
+        $expected = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<root><tag1 attr1="val1" attr2="val2"/><tag2>content2</tag2><tag3><tag4>content4</tag4></tag3></root>
+
+XML;
+        $xml = new XmlConstructor(['indentString' => null]);
+        $out = $xml->fromArray($this->in1)->toOutput();
+        $this->assertEquals($expected, $out);
     }
 
     /**
@@ -186,16 +220,16 @@ XML;
      */
     public function testCdataContent()
     {
-        $out1 = <<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
     <tag1><![CDATA[<b>content1</b>]]></tag1>
     <tag2>content2</tag2>
 </root>
 XML;
-        $xml = new XmlConstructor(['indentString' => false]);
-        $out2 = $xml->fromArray($this->in3)->toOutput();
-        $this->assertEquals($this->prepare($out1), $this->prepare($out2));
+        $xml = new XmlConstructor();
+        $out = $xml->fromArray($this->in3)->toOutput();
+        $this->assertEquals($this->prepare($expected), $this->prepare($out));
     }
 
     /**
@@ -203,12 +237,12 @@ XML;
      */
     public function testInvalidConfiguration()
     {
-        $out1 = <<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 XML;
         $xml = new XmlConstructor();
-        $out2 = $xml->fromArray(['incorrect' => 'array'])->toOutput();
-        $this->assertEquals($this->prepare($out1), $this->prepare($out2));
+        $out = $xml->fromArray(['incorrect' => 'array'])->toOutput();
+        $this->assertEquals($this->prepare($expected), $this->prepare($out));
     }
 
     /**
@@ -216,7 +250,7 @@ XML;
      */
     public function testDoubleToOutput()
     {
-        $out1 = <<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
     <tag1 attr1="val1" attr2="val2"/>
@@ -228,8 +262,8 @@ XML;
 XML;
         $xml = new XmlConstructor();
 
-        $out2 = $xml->fromArray($this->in1)->toOutput();
-        $this->assertEquals($this->prepare($out1), $this->prepare($out2));
+        $out = $xml->fromArray($this->in1)->toOutput();
+        $this->assertEquals($this->prepare($expected), $this->prepare($out));
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('The constructor is closed. You have to create new one to flush its again.');
@@ -241,7 +275,7 @@ XML;
      */
     public function testDoubleFromArray()
     {
-        $out1 = <<<XML
+        $expected = <<<XML
 <?xml version="1.1" encoding="ASCII"?>
 <root>
  <tag1 attr1="val1" attr2="val2"/>
@@ -257,8 +291,8 @@ XML;
             'indentString' => ' ',
         ]);
 
-        $out2 = $xml->fromArray($this->in1)->toOutput();
-        $this->assertEquals($out1, $out2);
+        $out = $xml->fromArray($this->in1)->toOutput();
+        $this->assertEquals($expected, $out);
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('The constructor is closed. You have to create new one to create '

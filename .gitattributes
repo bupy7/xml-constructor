@@ -4,3 +4,4 @@
 /workenv export-ignore
 /tests export-ignore
 /.github export-ignore
+/phpcs.php export-ignore
