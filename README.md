@@ -86,11 +86,11 @@ echo $xml->fromArray($in)->toOutput();
 
 **Configuration:**
 
-```
+```php
 $xml = new XmlConstructor([
     // Indent each line in the XML document. 4 space by default.
     'indentString' => '    ',
-    // Header document tag. "<?xml version="1.0" encoding="UTF-8"?>" by default.
+    /* Header document tag. "<?xml version="1.0" encoding="UTF-8"?>" by default. */
     'startDocument' => [
         // version
         '1.0',
