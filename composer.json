@@ -26,7 +26,11 @@
   },
   "autoload": {
     "psr-4": {
-      "bupy7\\xml\\constructor\\": "src",
+      "bupy7\\xml\\constructor\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
       "bupy7\\xml\\constructor\\tests\\": "tests"
     }
   }
