@@ -1,6 +1,14 @@
 xml-constrcutor
 ===
 
+v2.0.1 [2023-01-07]
+---
+
+- Code style fixes.
+- Fixed tests.
+- Modified documentation.
+- Small fixes and improvements.
+
 v2.0.0 [2023-01-06]
 ---
 
