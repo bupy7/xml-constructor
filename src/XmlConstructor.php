@@ -205,6 +205,7 @@ class XmlConstructor
             if (!is_array($element) || !isset($element['tag'])) {
                 continue;
             }
+
             $tag = $element['tag'];
             $attributes = [];
             if (isset($element['attributes']) && is_array($element['attributes'])) {
@@ -216,18 +217,19 @@ class XmlConstructor
             } elseif (isset($element['elements']) && is_array($element['elements'])) {
                 $content = $element['elements'];
             }
-            $this->document->startElement($tag);
+
+            $this->document->startElement((string)$tag);
             foreach ($attributes as $attribute => $value) {
-                $this->document->writeAttribute($attribute, $value);
+                $this->document->writeAttribute((string)$attribute, (string)$value);
             }
-            if (isset($content)) {
+            if ($content !== null) {
                 if (is_array($content)) {
                     $this->_fromArray($content);
                 } else {
-                    if (isset($element['cdata']) && $element['cdata']) {
-                        $this->document->writeCdata($content);
+                    if (isset($element['cdata']) && (bool)$element['cdata']) {
+                        $this->document->writeCdata((string)$content);
                     } else {
-                        $this->document->text($content);
+                        $this->document->text((string)$content);
                     }
                 }
             }
