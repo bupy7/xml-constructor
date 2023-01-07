@@ -216,6 +216,27 @@ XML;
     }
 
     /**
+     * @since 2.0.1
+     */
+    public function testCustomIndentString4()
+    {
+        $expected = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+<tag1 attr1="val1" attr2="val2"/>
+<tag2>content2</tag2>
+<tag3>
+<tag4>content4</tag4>
+</tag3>
+</root>
+
+XML;
+        $xml = new XmlConstructor(['indentString' => '']);
+        $out = $xml->fromArray($this->in1)->toOutput();
+        $this->assertEquals($expected, $out);
+    }
+
+    /**
      * @since 1.3.0
      */
     public function testCdataContent()
