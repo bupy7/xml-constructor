@@ -5,8 +5,6 @@ namespace bupy7\xml\constructor\tests;
 use bupy7\xml\constructor\RuntimeException;
 use bupy7\xml\constructor\XmlConstructor;
 
-use function preg_replace;
-
 /**
  * @since 1.2.1
  */
@@ -109,6 +107,20 @@ XML;
 XML;
         $xml = new XmlConstructor();
         $out = $xml->fromArray($this->in2)->toOutput();
+        $this->assertEquals($expected, $out);
+    }
+
+    /**
+     * @since 2.0.2
+     */
+    public function testDefaultDocument3()
+    {
+        $expected = <<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+
+XML;
+        $xml = new XmlConstructor();
+        $out = $xml->toOutput();
         $this->assertEquals($expected, $out);
     }
 
@@ -247,10 +259,11 @@ XML;
     <tag1><![CDATA[<b>content1</b>]]></tag1>
     <tag2>content2</tag2>
 </root>
+
 XML;
         $xml = new XmlConstructor();
         $out = $xml->fromArray($this->in3)->toOutput();
-        $this->assertEquals($this->prepare($expected), $this->prepare($out));
+        $this->assertEquals($expected, $out);
     }
 
     /**
@@ -260,31 +273,21 @@ XML;
     {
         $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
+
 XML;
         $xml = new XmlConstructor();
         $out = $xml->fromArray(['incorrect' => 'array'])->toOutput();
-        $this->assertEquals($this->prepare($expected), $this->prepare($out));
+        $this->assertEquals($expected, $out);
     }
 
     /**
-     * @since 2.0.0
+     * @since 2.0.2
      */
-    public function testDoubleToOutput()
+    public function testDoubleToOutput1()
     {
-        $expected = <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<root>
-    <tag1 attr1="val1" attr2="val2"/>
-    <tag2>content2</tag2>
-    <tag3>
-        <tag4>content4</tag4>
-    </tag3>
-</root>
-XML;
         $xml = new XmlConstructor();
 
-        $out = $xml->fromArray($this->in1)->toOutput();
-        $this->assertEquals($this->prepare($expected), $this->prepare($out));
+        $xml->fromArray($this->in1)->toOutput();
 
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('The constructor is closed. You have to create new one to flush its again.');
@@ -292,41 +295,59 @@ XML;
     }
 
     /**
-     * @since 2.0.0
+     * @since 2.0.2
      */
-    public function testDoubleFromArray()
+    public function testDoubleToOutput2()
     {
-        $expected = <<<XML
-<?xml version="1.1" encoding="ASCII"?>
-<root>
- <tag1 attr1="val1" attr2="val2"/>
- <tag2>content2</tag2>
- <tag3>
-  <tag4>content4</tag4>
- </tag3>
-</root>
+        $xml = new XmlConstructor();
 
-XML;
-        $xml = new XmlConstructor([
-            'startDocument' => ['1.1', 'ASCII'],
-            'indentString' => ' ',
-        ]);
-
-        $out = $xml->fromArray($this->in1)->toOutput();
-        $this->assertEquals($expected, $out);
+        $xml->toOutput();
 
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('The constructor is closed. You have to create new one to create '
-            . 'an XML document again.');
+        $this->expectExceptionMessage('The constructor is closed. You have to create new one to flush its again.');
+        $xml->toOutput();
+    }
+
+    /**
+     * @since 2.0.2
+     */
+    public function testDoubleFromArray1()
+    {
+        $xml = new XmlConstructor();
+
+        $xml->fromArray($this->in1);
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('XML document is made already.');
         $xml->fromArray($this->in1);
     }
 
     /**
-     * @param string $xml
-     * @return string
+     * @since 2.0.2
      */
-    private function prepare($xml)
+    public function testDoubleFromArray2()
     {
-        return preg_replace('/\s/', '', $xml);
+        $xml = new XmlConstructor();
+
+        $xml->fromArray($this->in1)->toOutput();
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('XML document is made already.');
+        $xml->fromArray($this->in1);
+    }
+
+    /**
+     * @since 2.0.3
+     */
+    public function testDoubleFromArray3()
+    {
+        $xml = new XmlConstructor();
+
+        $xml->toOutput();
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('The constructor is closed. You have to create new one to create an XML '
+            . 'document again.');
+        $xml->fromArray($this->in1);
     }
 }

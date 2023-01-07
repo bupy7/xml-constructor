@@ -57,11 +57,15 @@ use function array_key_exists;
 class XmlConstructor
 {
     /**
-     * @var boolean
+     * @var bool
      */
     private $flushed = false;
     /**
-     * @var boolean
+     * @var bool
+     */
+    private $made = false;
+    /**
+     * @var bool
      */
     private $hasDocumentStart = false;
     /**
@@ -140,6 +144,12 @@ class XmlConstructor
      */
     public function fromArray(array $in)
     {
+        if ($this->made) {
+            throw new RuntimeException('XML document is made already.');
+        }
+
+        $this->made = true;
+
         if ($this->flushed) {
             throw new RuntimeException('The constructor is closed. You have to create new one to create an XML document'
                 . ' again.');
