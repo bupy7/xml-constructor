@@ -138,4 +138,4 @@ composer global require friendsofphp/php-cs-fixer "^3.13.0"
 License
 ---
 
-**xml-constructor** is released under the BSD 3-Clause License. See the bundled `LICENSE.md` for details.
+**xml-constructor** is released under the BSD-3-Clause License. See the bundled `LICENSE.md` for details.
