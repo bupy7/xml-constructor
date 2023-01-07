@@ -90,7 +90,7 @@ echo $xml->fromArray($in)->toOutput();
 $xml = new XmlConstructor([
     // Indent each line in the XML document. 4 space by default.
     'indentString' => '    ',
-    // Header document tag. "<?xml version="1.0" encoding="UTF-8"?>" by default.
+    // Header document tag. "<?xml version="1.0" encoding="UTF-8"?&gt;" by default.
     'startDocument' => [
         // version
         '1.0',
@@ -99,6 +99,8 @@ $xml = new XmlConstructor([
     ],
 ]);
 ```
+
+You can set up `indentString` and/or `startDocument` as `null` to disable them.
 
 Testing
 ---
