@@ -7,5 +7,4 @@ namespace bupy7\xml\constructor;
  */
 interface ExceptionInterface
 {
-
 }

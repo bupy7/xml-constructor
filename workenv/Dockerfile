@@ -11,7 +11,8 @@ ARG GITHUB_OAUTH_TOKEN=false
 RUN if [ ${GITHUB_OAUTH_TOKEN} != false ]; then \
   composer config -g github-oauth.github.com ${GITHUB_OAUTH_TOKEN} \
 ;fi
-
 RUN export COMPOSER_DISABLE_XDEBUG_WARN=1
+
+RUN composer global require friendsofphp/php-cs-fixer "^3.13.0"
 
 CMD ["php", "-a"]

@@ -11,7 +11,7 @@ use function str_repeat;
 
 /**
  * Creating an XML document from an array.
- * 
+ *
  * Usage:
  *
  * $xml = new XmlConstructor();
@@ -132,7 +132,7 @@ class XmlConstructor
      *         ],
      *     ],
      * ]);
-     * 
+     *
      * @param array $in XML document structure as PHP array.
      * @return static
      * @throws RuntimeException

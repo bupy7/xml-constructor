@@ -101,6 +101,22 @@ $ XDEBUG_MODE=coverage ./vendor/bin/phpunit
 
 HTML coverage path: `build/coverage/index.html`
 
+Code style
+---
+
+To fix code style, run:
+
+```
+~/.composer/vendor/bin/php-cs-fixer fix --config=./phpcs.php --verbose
+```
+
+You have to install [PHP CS Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer) at first, if you
+don't use build-in Docker image:
+
+```
+composer global require friendsofphp/php-cs-fixer "^3.13.0"
+```
+
 License
 ---
 

@@ -77,7 +77,7 @@ class XmlConstructTest extends TestCase
             ],
         ],
     ];
-    
+
     public function testDefaultDocument1()
     {
         $out1 = <<<XML
@@ -146,7 +146,7 @@ XML;
         $out2 = $xml->fromArray($this->in1)->toOutput();
         $this->assertEquals($out1, $out2);
     }
-    
+
     public function testCustomIndentString1()
     {
         $out1 = <<<XML
