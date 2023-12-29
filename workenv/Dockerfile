@@ -1,4 +1,4 @@
-FROM php:8.2-cli-alpine
+FROM php:8.3-cli-alpine
 
 RUN apk add --no-cache $PHPIZE_DEPS && apk add --update --no-cache linux-headers
 
@@ -13,6 +13,6 @@ RUN if [ ${GITHUB_OAUTH_TOKEN} != false ]; then \
 ;fi
 RUN export COMPOSER_DISABLE_XDEBUG_WARN=1
 
-RUN composer global require friendsofphp/php-cs-fixer "^3.13.0"
+RUN composer global require friendsofphp/php-cs-fixer "^3.43.1"
 
 CMD ["php", "-a"]

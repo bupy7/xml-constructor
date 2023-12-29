@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
     bootstrap="./tests/bootstrap.php"
-    verbose="true"
-    colors="true">
+    colors="true"
+    cacheDirectory=".phpunit.cache"
+>
+  <coverage>
+    <report>
+      <clover outputFile="build/logs/clover.xml"/>
+      <html outputDirectory="build/coverage"/>
+    </report>
+  </coverage>
 
   <testsuites>
     <testsuite name="Main Tests">
@@ -10,14 +19,11 @@
     </testsuite>
   </testsuites>
 
-  <filter>
-    <whitelist>
-      <directory suffix=".php">./src</directory>
-    </whitelist>
-  </filter>
+  <logging />
 
-  <logging>
-    <log type="coverage-html" target="build/coverage"/>
-    <log type="coverage-clover" target="build/logs/clover.xml"/>
-  </logging>
+  <source>
+    <include>
+      <directory suffix=".php">./src</directory>
+    </include>
+  </source>
 </phpunit>
