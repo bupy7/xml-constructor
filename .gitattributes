@@ -1,7 +1,8 @@
 /.gitignore export-ignore
 /.gitattributes export-ignore
 /phpunit.xml export-ignore
+/phpunit.legacy.xml export-ignore
 /workenv export-ignore
 /tests export-ignore
 /.github export-ignore
-/phpcs.php export-ignore
+/.php-cs-fixer.php export-ignore

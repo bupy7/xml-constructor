@@ -9,7 +9,7 @@ xml-constructor
 
 The array-like constructor of XML document structure.
 
-Supporting PHP from 5.6 up to 8.3.
+Supporting PHP from 5.6 up to newest.
 
 Install
 ---
@@ -125,7 +125,7 @@ Code style
 To fix code style, run:
 
 ```
-~/.composer/vendor/bin/php-cs-fixer fix --config=./phpcs.php --verbose
+~/.composer/vendor/bin/php-cs-fixer fix --verbose
 ```
 
 You have to install [PHP CS Fixer](https://github.com/PHP-CS-Fixer/PHP-CS-Fixer) at first, if you

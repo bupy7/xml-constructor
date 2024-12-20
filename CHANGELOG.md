@@ -1,6 +1,12 @@
 xml-constrcutor
 ===
 
+v2.0.4 [2024-12-21]
+---
+
+- Supporting of PHP 8.4.
+- Code style fixes.
+
 v2.0.3 [2023-12-29]
 ---
 

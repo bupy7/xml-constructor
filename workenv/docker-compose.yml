@@ -1,11 +1,13 @@
-version: '3'
-
 services:
   php-cli:
     build:
       context: workenv
       args:
-        - GITHUB_OAUTH_TOKEN=<YOUR_TOKEN>
+        - "GITHUB_OAUTH_TOKEN="
+        # If you are don't using Docker Desktop, but Docker Engine with Compose plugin, you should uncomment lines
+        # below and set-up "uid" and "gid" of your system user (see man of "id"). Try run command "id -u" and "id -g".
+        # - "USER_UID=1000"
+        # - "USER_GID=1000"
     working_dir: /app
     tty: true
     volumes:
