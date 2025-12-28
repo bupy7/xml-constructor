@@ -1,4 +1,4 @@
-FROM php:8.4-cli-alpine
+FROM php:8.5-cli-alpine
 
 ARG GITHUB_OAUTH_TOKEN=""
 ARG USER_UID=""
@@ -37,6 +37,6 @@ RUN if [ -n ${GITHUB_OAUTH_TOKEN} ]; then \
 
 # other tools
 # ---
-RUN composer global require --dev friendsofphp/php-cs-fixer "^3.65.0"
+RUN composer global require --dev friendsofphp/php-cs-fixer "^3.92.3"
 
 CMD ["php", "-a"]
